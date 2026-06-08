@@ -483,8 +483,6 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   a.volume = saved.volume != null ? saved.volume : 0.7;
   if(saved.muted) a.muted = true;
   setVolUI();
-  tDur.textContent = fmt(TIMELINE_TOTAL);
-  addSectionMarkers(TIMELINE_TOTAL);
 
   function save(){ try { localStorage.setItem(KEY, JSON.stringify({time:a.currentTime||0, volume:a.volume, muted:a.muted})); } catch(e){} }
 
@@ -513,6 +511,10 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
       seekLabels.appendChild(label);
     });
   }
+
+  tDur.textContent = fmt(TIMELINE_TOTAL);
+  addSectionMarkers(TIMELINE_TOTAL);
+  updateSeek();
 
   a.addEventListener('loadedmetadata', () => {
     tDur.textContent = fmt(duration());
