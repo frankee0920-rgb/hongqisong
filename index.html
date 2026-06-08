@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>红旗颂 · Ode to the Red Flag</title>
+<link rel="stylesheet" href="styles.css?v=seek-final-20260608" />
+<style>
+  .seek-container{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0;cursor:pointer;user-select:none;touch-action:none}
+  .seek{flex:none!important;width:100%!important;height:28px!important;position:relative;cursor:pointer;touch-action:none;user-select:none}
+  .seek-track{position:absolute;left:0;right:0;top:50%;height:4px;border-radius:2px;background:rgba(251,246,238,.2);transform:translateY(-50%)}
+  .seek-fill{position:absolute;left:0;top:50%;height:4px;border-radius:2px;background:linear-gradient(90deg,#E0354B,#DDBE73);width:0;transform:translateY(-50%)}
+  .seek-knob{position:absolute;left:0;top:50%;width:12px;height:12px;border-radius:50%;background:#FBF6EE;box-shadow:0 1px 4px rgba(0,0,0,.4);transform:translate(-50%,-50%);opacity:.72}
+  #seekTicks{position:absolute;inset:0;pointer-events:none}
+  .seek-tick{position:absolute;top:0;width:1.5px;height:100%;background:rgba(221,190,115,.45);transform:translateX(-50%);border-radius:1px}
+  .seek-hit{position:absolute;left:0;right:0;top:50%;z-index:5;height:44px;transform:translateY(-50%);appearance:none;border:0;background:transparent;cursor:pointer;padding:0;margin:0;touch-action:none}
+  .seek-labels-row{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:14px!important;height:16px!important;min-width:0;align-items:start}
+  .seek-sec-label{position:static!important;left:auto!important;width:auto!important;transform:none!important;min-width:0;font-family:var(--font-mono);font-size:9px;color:rgba(251,246,238,.86);white-space:nowrap;line-height:1;text-align:center;cursor:pointer;overflow:hidden;text-overflow:ellipsis;padding:0}
+  .seek-sec-label small{display:none!important}
+  .seek-sec-label:first-child{text-align:left}.seek-sec-label:last-child{text-align:right}
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#3A090F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#3A090F"/>
+    <text x="360" y="470" font-family="serif" font-weight="900" font-size="280" fill="#FBF6EE" text-anchor="middle">红旗</text>
+    <text x="840" y="470" font-family="serif" font-weight="900" font-size="280" fill="#DDBE73" text-anchor="middle">颂</text>
+    <text x="600" y="580" font-family="monospace" font-size="44" letter-spacing="18" fill="#DDBE73" text-anchor="middle">★ ODE TO THE RED FLAG</text>
+  </svg>
+</template>
+</head>
+<body>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <div class="brand-mark"><span class="star">★</span> 朗诵 · 合唱 作品赏析</div>
+      <h1 class="hero-title">红旗<span class="accent">颂</span></h1>
+      <div class="hero-sub">Ode to the Red Flag</div>
+    </div>
+    <p class="hero-lede">
+      <span class="rule"></span>
+      听，那是划破长空的号角，<br />惊醒沉睡千年的东方。
+    </p>
+  </div>
+</header>
+
+<!-- ============ TAB NAV ============ -->
+<div class="tabnav-wrap">
+  <nav class="tabnav" role="tablist" aria-label="主题导航">
+    <button class="tab" role="tab" aria-selected="true"  data-panel="structure"><span class="idx">01</span>朗诵剧本</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="t2"><span class="idx">02</span>音乐结构</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="t3"><span class="idx">03</span>表演呈现</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="t4"><span class="idx">04</span>演出阵容</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="t5"><span class="idx">05</span>赏析感悟</button>
+  </nav>
+</div>
+
+<main class="stage">
+
+<!-- ===================================================
+     PANEL 01 — 朗诵剧本
+     =================================================== -->
+<section class="panel active" id="panel-structure" role="tabpanel">
+  <div class="anim">
+    <div class="section-eyebrow">朗诵剧本 · Libretto</div>
+    <h2 class="section-title">《红旗颂》朗诵 · 合唱剧本</h2>
+    <p class="section-desc">全曲分为引子与三个部分</p>
+  </div>
+
+  <div class="subtabs anim" role="tablist">
+    <button class="subtab" role="tab" aria-selected="true"  data-part="p0"><span class="st-idx">PRELUDE</span><span class="st-name">引子</span><span class="st-mood">斗志昂扬</span></button>
+    <button class="subtab" role="tab" aria-selected="false" data-part="p1"><span class="st-idx">PART Ⅰ</span><span class="st-name">第一部分</span><span class="st-mood">深情歌颂</span></button>
+    <button class="subtab" role="tab" aria-selected="false" data-part="p2"><span class="st-idx">PART Ⅱ</span><span class="st-name">第二部分</span><span class="st-mood">回顾战斗 · 胜利凯旋</span></button>
+    <button class="subtab" role="tab" aria-selected="false" data-part="p3"><span class="st-idx">PART Ⅲ</span><span class="st-name">第三部分</span><span class="st-mood">那一抹信仰的红</span></button>
+  </div>
+
+  <!-- 引子 -->
+  <article class="part active" id="part-p0">
+    <div class="part-bg">
+      <image-slot id="img-p0" style="display:block;width:100%;height:100%" shape="rect" fit="cover" placeholder="拖入「破晓 / 号角」背景图片"></image-slot>
+    </div>
+    <div class="part-overlay"></div>
+    <div class="part-content">
+      <div class="part-head">
+        <div class="part-numeral">引</div>
+        <div class="part-meta">
+          <h3>引子 · 斗志昂扬</h3>
+          <div class="mood-tag">语气 ·&nbsp;<b>激昂、唤醒、宣告</b>&nbsp;如第一缕曙光刺破黑暗</div>
+        </div>
+      </div>
+      <div class="libretto">
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">听，那是划破长空的号角，惊醒沉睡千年的东方！</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">看啊，当第一缕曙光刺破黑暗，集结的号角已然在神州大地上吹响！</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">斗志，在胸中燃烧；冲锋，向着胜利，向着新的辉煌，冲锋！</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 第一部分 -->
+  <article class="part" id="part-p1">
+    <div class="part-bg">
+      <image-slot id="img-p1" style="display:block;width:100%;height:100%" shape="rect" fit="cover" placeholder="拖入「山峦 / 长江 / 五星红旗」背景图片"></image-slot>
+    </div>
+    <div class="part-overlay"></div>
+    <div class="part-content">
+      <div class="part-head">
+        <div class="part-numeral">壹</div>
+        <div class="part-meta">
+          <h3>第一部分 · 深情歌颂</h3>
+          <div class="mood-tag">语气 ·&nbsp;<b>温和、深沉、如歌叙述</b>&nbsp;如穿越历史长河的回望</div>
+        </div>
+      </div>
+      <div class="libretto">
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">走过硝烟弥漫的历史长河，我深情地向你回望。</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">祖国，你如连绵巍峨的山峦，托起民族的希望，你如奔流的浩荡长江，哺育中华儿女。</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">我们把对你全部的爱，汇聚成了这首最深沉、最动人的颂歌。</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">你，是我们心中永远的依恋，是指引我们，永远向前的，那一面鲜艳的红旗！</div></div>
+        <div class="line sung" data-role="唱"><div class="role">♪ 唱</div><div class="text">美丽的蓝天上，五星红旗飘扬，庄严的旗帜，你闪耀光芒。心中有你，我们茁壮成长；心中有你，我们荡起理想的双桨，捧起祖国的太阳。</div></div>
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">轻轻翻开岁月的长卷，那是茫茫雪原上，战友们相互依偎时，信念燃烧的体温；</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">那是摇曳的煤油灯下，母亲为远行的儿女，密密缝补的粗布衣衫。</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">那是青纱帐里，渴望着光明的眼眸；是漫漫征途上，那些永远倒在泥土中，却依然向着远方微笑的，年轻容颜。</div></div>
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">他们也有柔软的牵挂，也曾有对故乡和爱人深深的眷恋，但他们却把这最炽热、最纯粹的爱，无声地包裹住祖国母亲伤痕累累的血脉。</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">他们用生命的微光，点亮了暗夜里的星辰；用滚烫的鲜血，浇灌出这片土地上，漫山遍野的迎春花。</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 第二部分 -->
+  <article class="part" id="part-p2">
+    <div class="part-bg">
+      <image-slot id="img-p2" style="display:block;width:100%;height:100%" shape="rect" fit="cover" placeholder="拖入「烽烟 / 冲锋 / 凯旋」背景图片"></image-slot>
+    </div>
+    <div class="part-overlay"></div>
+    <div class="part-content">
+      <div class="part-head">
+        <div class="part-numeral">贰</div>
+        <div class="part-meta">
+          <h3>第二部分 · 回顾战斗，胜利凯旋</h3>
+          <div class="mood-tag">语气 ·&nbsp;<b>紧张、戏剧性、画面感</b>&nbsp;如炮火震天到红旗飘扬</div>
+        </div>
+      </div>
+      <div class="libretto">
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">烽烟骤起，惊雷撕裂了沉重的苍穹，耳畔，又响起那穿云裂石的怒吼与冲锋！</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">那是枪林弹雨中，向死而生的无畏，那是刀光剑影里，以血淬火的忠诚。</div></div>
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">踏平雄关漫道，越过千山万水，钢铁的洪流，踏碎了旧世界的牢笼！</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">看吧！霾散去，长空万里，凯旋的乐章，正伴着铿锵的步伐，化作响彻寰宇的惊鸿！</div></div>
+        <div class="line" data-role="A"><div class="role">A</div><div class="text">关山险隘，壁垒森严，征途之上，沟壑纵横，将士们不畏饥寒艰险</div></div>
+        <div class="line" data-role="B"><div class="role">B</div><div class="text">翻越峻岭江河，一往无前的钢铁洪流，彻底击碎旧世界的层层牢笼。</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">坚定步伐，踏响凯旋乐章，嘹亮凯歌，直冲云霄，化作响彻寰宇、震彻山河的时代惊鸿。</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 第三部分 -->
+  <article class="part" id="part-p3">
+    <div class="part-bg">
+      <image-slot id="img-p3" style="display:block;width:100%;height:100%" shape="rect" fit="cover" placeholder="拖入「五星红旗 / 信仰」背景图片"></image-slot>
+    </div>
+    <div class="part-overlay"></div>
+    <div class="part-content">
+      <div class="part-head">
+        <div class="part-numeral">叁</div>
+        <div class="part-meta">
+          <h3>第三部分 · 那一抹信仰的红</h3>
+          <div class="mood-tag">语气 ·&nbsp;<b>宏大、史诗性、展望</b>&nbsp;多身份群像朗诵</div>
+        </div>
+      </div>
+      <div class="libretto">
+        <div class="line" data-role="华侨"><div class="role">华侨</div><div class="text"><span class="role-note">华侨 · 眼神深邃、饱含思念</span>我是漂泊异乡的海外华侨。每当望见国旗，眼前便浮现万里故土、袅袅炊烟。</div></div>
+        <div class="line" data-role="学子"><div class="role">学子</div><div class="text"><span class="role-note">海外学子 · 朝气蓬勃</span>我是在外求学的中华学子。每当望见国旗，泪水总会漫上眼眶。</div></div>
+        <div class="line" data-role="战士"><div class="role">战士</div><div class="text"><span class="role-note">边防战士 · 坚毅沉稳</span>我是戍守边疆的人民子弟兵。每当望见国旗，我便紧握手中钢枪。旗在阵地在，人在山河安，以一身坚守，护万家灯火岁岁安宁！</div></div>
+        <div class="line" data-role="奥运"><div class="role">奥运</div><div class="text"><span class="role-note">奥运健儿 · 昂扬热忱、满怀自豪</span>我是奥运健儿。每当国旗升起，所有汗水、伤痛与拼搏，都化作无上荣光。</div></div>
+        <div class="line" data-role="航天"><div class="role">航天</div><div class="text"><span class="role-note">航天工作者 · 目光悠远、满怀求索</span>我是航天工作者。那抹红，凝于宇航服胸前，闪耀在太空空间站。</div></div>
+        <div class="line chorus" data-role="合"><div class="role">合</div><div class="text">一面红旗，一脉信仰；一寸山河，一腔赤诚。我们接续奋斗，让这抹信仰之红，永远闪耀在华夏大地，照耀我们奔赴更远、更辉煌的远方！</div></div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ===================================================
+     PANEL 02 — 音乐结构
+     =================================================== -->
+<section class="panel" id="panel-t2" role="tabpanel">
+  <div class="anim">
+    <div class="section-eyebrow">音乐结构 · Structure</div>
+    <h2 class="section-title">《红旗颂》音乐要素解析</h2>
+    <p class="section-desc">全曲由引子和三个部分构成，每段从「画面」「情绪」「音色」三个维度呈现音乐特征。</p>
+  </div>
+
+  <div class="ms-subtabs anim" role="tablist">
+    <button class="ms-subtab" role="tab" aria-selected="true"  data-ms="ms0"><span class="ms-sub-idx">PRELUDE</span>引子</button>
+    <button class="ms-subtab" role="tab" aria-selected="false" data-ms="ms1"><span class="ms-sub-idx">PART Ⅰ</span>第一部分</button>
+    <button class="ms-subtab" role="tab" aria-selected="false" data-ms="ms2"><span class="ms-sub-idx">PART Ⅱ</span>第二部分</button>
+    <button class="ms-subtab" role="tab" aria-selected="false" data-ms="ms3"><span class="ms-sub-idx">PART Ⅲ</span>第三部分</button>
+  </div>
+
+  <!-- 引子 -->
+  <div class="ms-panel active" id="ms-ms0">
+    <div class="ms-panel-card">
+      <div class="ms-row-block">
+        <div class="ms-row-header huamian">画面</div>
+        <div class="ms-row-body" style="font-size: 6px">
+          <image-slot id="img-p0" style="display:block;width:100%;height:260px" shape="rect" fit="contain" placeholder="拖入「迎接开国大典」配图（与朗诵剧本共用）"></image-slot>
+          <p class="ms-caption" style="font-size: 6px">迎接开国大典</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header qingxu">情绪</div>
+        <div class="ms-row-body">
+          <div class="ms-emotion-main">胜利号角</div>
+          <div class="ms-emotion-tags"><span class="ms-emotion-tag">激动</span><span class="ms-emotion-tag">振奋</span></div>
+          <p class="ms-emotion-mood">激昂宣告，如第一缕曙光刺破黑暗</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header yinse">音色</div>
+        <div class="ms-row-body">
+          <div class="ms-timbre-name">铜管</div>
+          <p class="ms-timbre-desc">号角式铜管齐奏，音色明亮穿透，宣告般的力量感</p>
+          <image-slot id="img-brass" style="display:block;width:100%;height:220px;margin-top:16px" shape="rect" fit="contain" placeholder="拖入铜管乐器图片"></image-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第一部分 -->
+  <div class="ms-panel" id="ms-ms1">
+    <div class="ms-panel-card">
+      <div class="ms-row-block">
+        <div class="ms-row-header huamian">画面</div>
+        <div class="ms-row-body" style="font-size: 18px">
+          <image-slot id="img-p1" style="display:block;width:100%;height:260px" shape="rect" fit="contain" placeholder="拖入「回顾伟大胜利」配图（与朗诵剧本共用）"></image-slot>
+          <p class="ms-caption">回顾伟大胜利</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header qingxu">情绪</div>
+        <div class="ms-row-body">
+          <div class="ms-emotion-main">颂歌主题</div>
+          <div class="ms-emotion-tags"><span class="ms-emotion-tag">恢弘</span><span class="ms-emotion-tag">深情</span></div>
+          <p class="ms-emotion-mood">温和深沉，如穿越历史长河的回望</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header yinse">音色</div>
+        <div class="ms-row-body">
+          <div class="ms-timbre-name">弦乐 · 双簧管</div>
+          <p class="ms-timbre-desc">弦乐组奠定温暖底色，双簧管如歌独奏，引出主旋律</p>
+          <image-slot id="img-strings" style="display:block;width:100%;height:220px;margin-top:16px" shape="rect" fit="contain" placeholder="拖入弦乐 / 双簧管图片"></image-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第二部分 -->
+  <div class="ms-panel" id="ms-ms2">
+    <div class="ms-panel-card">
+      <div class="ms-row-block">
+        <div class="ms-row-header huamian">画面</div>
+        <div class="ms-row-body" style="font-size: 6px">
+          <image-slot id="img-p2" style="display:block;width:100%;height:260px" shape="rect" fit="contain" placeholder="拖入「胜利凯旋」配图（与朗诵剧本共用）"></image-slot>
+          <p class="ms-caption" style="font-size: 6px">胜利凯旋</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header qingxu">情绪</div>
+        <div class="ms-row-body">
+          <div class="ms-emotion-main">钢铁洪流</div>
+          <div class="ms-emotion-tags"><span class="ms-emotion-tag">坚定</span><span class="ms-emotion-tag">豪迈</span></div>
+          <p class="ms-emotion-mood">紧张戏剧性，炮火震天到红旗飘扬</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header yinse">音色</div>
+        <div class="ms-row-body">
+          <div class="ms-timbre-name">管乐 · 弦乐</div>
+          <p class="ms-timbre-desc">管弦协奏，铿锵节奏推动战斗叙事，力度层层递进</p>
+          <image-slot id="img-orchestra" style="display:block;width:100%;height:220px;margin-top:16px" shape="rect" fit="contain" placeholder="拖入大交响乐队图片"></image-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第三部分 -->
+  <div class="ms-panel" id="ms-ms3">
+    <div class="ms-panel-card">
+      <div class="ms-row-block">
+        <div class="ms-row-header huamian">画面</div>
+        <div class="ms-row-body" style="font-size: 6px">
+          <image-slot id="img-p3" style="display:block;width:100%;height:260px" shape="rect" fit="contain" placeholder="拖入「红旗飘扬」配图（与朗诵剧本共用）"></image-slot>
+          <p class="ms-caption" style="font-size: 6px">红旗飘扬</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header qingxu">情绪</div>
+        <div class="ms-row-body">
+          <div class="ms-emotion-main">信仰磐石</div>
+          <div class="ms-emotion-tags"><span class="ms-emotion-tag">深情</span><span class="ms-emotion-tag">歌颂</span></div>
+          <p class="ms-emotion-mood">宏大史诗性，展望未来，如再现辉煌信念</p>
+        </div>
+      </div>
+      <div class="ms-row-block">
+        <div class="ms-row-header yinse">音色</div>
+        <div class="ms-row-body">
+          <div class="ms-timbre-name">全奏</div>
+          <p class="ms-timbre-desc">全体乐队合奏，宏大的交响织体，将情感推至顶点</p>
+          <image-slot id="img-orchestra" style="display:block;width:100%;height:220px;margin-top:16px" shape="rect" fit="contain" placeholder="拖入大交响乐队图片"></image-slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     PANELS 03–05 placeholder
+     =================================================== -->
+<section class="panel" id="panel-t3" role="tabpanel">
+  <div class="anim"><div class="section-eyebrow">环节三</div><h2 class="section-title">表演呈现</h2><p class="section-desc">小组配合，完整表演。</p></div>
+  <div class="placeholder-grid anim">
+    <div class="ph-card"><div class="ph-k"></div><h5>乐器组</h5><p>小军鼓 三连音</p></div>
+    <div class="ph-card"><div class="ph-k"></div><h5>群像分角色表演</h5><p>台词、肢体动作。</p></div>
+    <div class="ph-card"><div class="ph-k"></div><h5>朗诵音画</h5><p>合唱组与朗诵组的配合</p></div>
+  </div>
+  <div class="placeholder-note anim"><div class="pn-icon">微剧场</div><h4>六一班</h4><p>经典传唱升级版本</p></div>
+</section>
+
+<section class="panel" id="panel-t4" role="tabpanel">
+  <div class="anim"><div class="section-eyebrow">环节四 · 幕后</div><h2 class="section-title">演出阵容</h2><p class="section-desc">各小组分工</p></div>
+  <div class="placeholder-grid anim">
+    <div class="ph-card"><div class="ph-k">CAST</div><h5>朗诵 / 领诵</h5><p>A、B 角色人物。</p></div>
+    <div class="ph-card"><div class="ph-k">CHORUS</div><h5>合唱团</h5><p>合唱声部与团队。</p></div>
+    <div class="ph-card"><div class="ph-k">CREW</div><h5>乐器、表演组（道具）</h5><p>指挥、编排团队。</p></div>
+  </div>
+  <div class="placeholder-note anim"><div class="pn-icon">微剧场幕后</div><h4>六一班</h4><p>编演团队</p></div>
+</section>
+
+<section class="panel" id="panel-t5" role="tabpanel">
+  <div class="anim"><div class="section-eyebrow">课后环节 · </div><h2 class="section-title">赏析感悟</h2><p class="section-desc"></p></div>
+  <div class="placeholder-grid anim">
+    <div class="ph-card"><div class="ph-k">ANALYSIS</div><h5>艺术赏析</h5><p>语气、节奏、意象解读。</p></div>
+    <div class="ph-card"><div class="ph-k">REFLECTION</div><h5>观后感悟</h5><p>主创或观众感想文字。</p></div>
+    <div class="ph-card"><div class="ph-k">GUESTBOOK</div><h5>留言</h5><p>简单留言 / 寄语区。</p></div>
+  </div>
+  <div class="placeholder-note anim"><div class="pn-icon">⑤</div><h4></h4><p>制作：赵楠</p></div>
+</section>
+
+</main>
+
+<!-- ============ AUDIO PLAYER ============ -->
+<div class="player-hint" id="playerHint">音频未找到 · 请将 红旗颂.mp3 放入 assets/ 文件夹</div>
+<div class="player" id="player">
+  <div class="player-inner">
+    <div class="np">
+      <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="np-meta">
+        <div class="np-title">红旗颂</div>
+        <div class="np-by">背景音乐 · Background</div>
+      </div>
+    </div>
+    <div class="transport">
+      <button class="btn-play" id="btnPlay" aria-label="播放 / 暂停">
+        <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="times"><span id="tCur">0:00</span> / <span id="tDur">0:00</span></div>
+      <div class="seek-container" id="seekContainer">
+        <div class="seek" id="seek" role="slider" aria-label="进度" tabindex="0">
+          <div class="seek-track"></div>
+          <div class="seek-fill" id="seekFill"></div>
+          <div class="seek-knob" id="seekKnob"></div>
+          <div id="seekTicks"></div>
+          <button class="seek-hit" id="seekHit" type="button" aria-label="点击或拖拽播放进度"></button>
+        </div>
+        <div class="seek-labels-row" id="seekLabels"></div>
+      </div>
+    </div>
+    <div class="volume">
+      <button class="btn-mute" id="btnMute" aria-label="静音">
+        <svg id="iconVol" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        <svg id="iconMute" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm16.6 3l2.1-2.1-1.4-1.4-2.1 2.1-2.1-2.1-1.4 1.4 2.1 2.1-2.1 2.1 1.4 1.4 2.1-2.1 2.1 2.1 1.4-1.4z"/></svg>
+      </button>
+      <div class="vol" id="vol" role="slider" aria-label="音量" tabindex="0">
+        <div class="vol-track"></div>
+        <div class="vol-fill" id="volFill"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="bgm" src="assets/红旗颂.mp3" preload="metadata"></audio>
+<script src="image-slot.js"></script>
+<script>
+/* ── 段落时间标记 ── */
+const SECTIONS = [
+  {label:'引子',     from:0,   to:42,  range:'00:00-00:42'},
+  {label:'第一部分', from:42,  to:263, range:'00:42-04:23'},
+  {label:'第二部分', from:264, to:410, range:'04:24-06:50'},
+  {label:'第三部分', from:411, to:498, range:'06:51-08:18'},
+  {label:'尾声',     from:498, to:559, range:'08:18-09:19'},
+];
+const TIMELINE_TOTAL = 559;
+
+/* ── 主标签切换 ── */
+const tabs = document.querySelectorAll('.tab');
+const panels = { structure:document.getElementById('panel-structure'), t2:document.getElementById('panel-t2'), t3:document.getElementById('panel-t3'), t4:document.getElementById('panel-t4'), t5:document.getElementById('panel-t5') };
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  tabs.forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+  const key = tab.dataset.panel;
+  Object.entries(panels).forEach(([k,el]) => el.classList.toggle('active', k === key));
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ── 朗诵剧本子标签 ── */
+const subtabs = document.querySelectorAll('.subtab');
+const parts = { p0:document.getElementById('part-p0'), p1:document.getElementById('part-p1'), p2:document.getElementById('part-p2'), p3:document.getElementById('part-p3') };
+subtabs.forEach(st => st.addEventListener('click', () => {
+  subtabs.forEach(s => s.setAttribute('aria-selected', String(s === st)));
+  const key = st.dataset.part;
+  Object.entries(parts).forEach(([k,el]) => el.classList.toggle('active', k === key));
+}));
+
+/* ── 音乐结构行 Accordion ── */
+document.querySelectorAll('.ms-row-header').forEach(header => {
+  const arrow = document.createElement('span');
+  arrow.className = 'ms-expand-arrow';
+  header.appendChild(arrow);
+  header.addEventListener('click', () => {
+    const block = header.closest('.ms-row-block');
+    const body  = block.querySelector('.ms-row-body');
+    if (block.classList.contains('open')) {
+      body.style.height = body.scrollHeight + 'px';
+      requestAnimationFrame(() => requestAnimationFrame(() => { body.style.height = '0'; }));
+      block.classList.remove('open');
+    } else {
+      block.classList.add('open');
+      body.style.height = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', () => {
+        if (block.classList.contains('open')) body.style.height = 'auto';
+      }, { once: true });
+    }
+  });
+});
+
+/* ── 音乐结构子标签 ── */
+const msSubtabs = document.querySelectorAll('.ms-subtab');
+const msPanels = { ms0:document.getElementById('ms-ms0'), ms1:document.getElementById('ms-ms1'), ms2:document.getElementById('ms-ms2'), ms3:document.getElementById('ms-ms3') };
+msSubtabs.forEach(st => st.addEventListener('click', () => {
+  msSubtabs.forEach(s => s.setAttribute('aria-selected', String(s === st)));
+  const key = st.dataset.ms;
+  Object.entries(msPanels).forEach(([k,el]) => el && el.classList.toggle('active', k === key));
+}));
+
+/* ── 播放器 ── */
+(function(){
+  const a = document.getElementById('bgm');
+  const player = document.getElementById('player');
+  const btnPlay = document.getElementById('btnPlay');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const tCur = document.getElementById('tCur');
+  const tDur = document.getElementById('tDur');
+  const seekContainer = document.getElementById('seekContainer');
+  const seek = document.getElementById('seek');
+  const seekHit = document.getElementById('seekHit');
+  const seekFill = document.getElementById('seekFill');
+  const seekKnob = document.getElementById('seekKnob');
+  const seekTicks = document.getElementById('seekTicks');
+  const seekLabels = document.getElementById('seekLabels');
+  const vol = document.getElementById('vol');
+  const volFill = document.getElementById('volFill');
+  const btnMute = document.getElementById('btnMute');
+  const iconVol = document.getElementById('iconVol');
+  const iconMute = document.getElementById('iconMute');
+  const hint = document.getElementById('playerHint');
+  const KEY = 'hongqisong-player-v2';
+
+  const fmt = s => { if(!isFinite(s)||s<0) s=0; const m=Math.floor(s/60),ss=Math.floor(s%60); return m+':'+String(ss).padStart(2,'0'); };
+
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){}
+  a.volume = saved.volume != null ? saved.volume : 0.7;
+  if(saved.muted) a.muted = true;
+  setVolUI();
+
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify({time:a.currentTime||0, volume:a.volume, muted:a.muted})); } catch(e){} }
+
+  let markersAdded = false;
+  function addSectionMarkers(dur){
+    if(markersAdded) return;
+    markersAdded = true;
+    const timeline = Math.max(TIMELINE_TOTAL, Math.floor(dur || 0));
+    seekLabels.style.gridTemplateColumns = SECTIONS.map(s => `${Math.max(1, s.to - s.from)}fr`).join(' ');
+    SECTIONS.forEach((s,i) => {
+      const pct = (s.from / timeline) * 100;
+      if(i > 0){
+        const tick = document.createElement('div');
+        tick.className = 'seek-tick';
+        tick.style.left = pct + '%';
+        tick.title = `${s.label} ${s.range}`;
+        seekTicks.appendChild(tick);
+      }
+      const label = document.createElement('span');
+      label.className = 'seek-sec-label';
+      label.title = `${s.label} ${s.range}`;
+      label.dataset.from = s.from;
+      const labelName = document.createElement('b');
+      labelName.textContent = s.label;
+      label.append(labelName);
+      seekLabels.appendChild(label);
+    });
+  }
+
+  a.addEventListener('loadedmetadata', () => {
+    tDur.textContent = fmt(a.duration);
+    if(saved.time && saved.time < a.duration){ try { a.currentTime = saved.time; } catch(e){} }
+    updateSeek();
+    addSectionMarkers(a.duration);
+  });
+  a.addEventListener('error', () => { hint.classList.add('show'); setTimeout(()=>hint.classList.remove('show'),5200); });
+  a.addEventListener('timeupdate', () => { updateSeek(); if(Math.floor(a.currentTime)%3===0) save(); });
+  a.addEventListener('play',  () => { player.classList.add('playing');  iconPlay.style.display='none'; iconPause.style.display='block'; });
+  a.addEventListener('pause', () => { player.classList.remove('playing'); iconPlay.style.display='block'; iconPause.style.display='none'; save(); });
+
+  function updateSeek(){
+    const p = a.duration ? (a.currentTime/a.duration) : 0;
+    seekFill.style.width = (p*100)+'%';
+    seekKnob.style.left = (p*100)+'%';
+    tCur.textContent = fmt(a.currentTime);
+  }
+
+  btnPlay.addEventListener('click', () => {
+    if(a.paused){ const pr=a.play(); if(pr&&pr.catch) pr.catch(()=>{ hint.classList.add('show'); setTimeout(()=>hint.classList.remove('show'),5200); }); }
+    else a.pause();
+  });
+
+  function clientXFromEvent(e){
+    if(e.touches && e.touches[0]) return e.touches[0].clientX;
+    if(e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+    return e.clientX;
+  }
+
+  function seekTo(clientX){
+    const r=seek.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,(clientX-r.left)/r.width));
+    if(a.duration){
+      a.currentTime=p*a.duration;
+      updateSeek();
+    }
+  }
+  let seeking=false;
+  function startSeek(e){
+    seeking=true;
+    seek.classList.add('seeking');
+    seekTo(clientXFromEvent(e));
+    e.preventDefault();
+  }
+  function moveSeek(e){
+    if(!seeking) return;
+    seekTo(clientXFromEvent(e));
+    e.preventDefault();
+  }
+  function endSeek(){
+    if(!seeking) return;
+    seeking=false;
+    seek.classList.remove('seeking');
+    save();
+  }
+  seekHit.addEventListener('pointerdown', startSeek);
+  seekHit.addEventListener('mousedown', startSeek);
+  seekHit.addEventListener('touchstart', startSeek, {passive:false});
+  window.addEventListener('pointermove', moveSeek);
+  window.addEventListener('mousemove', moveSeek);
+  window.addEventListener('touchmove', moveSeek, {passive:false});
+  window.addEventListener('pointerup', endSeek);
+  window.addEventListener('mouseup', endSeek);
+  window.addEventListener('touchend', endSeek);
+  window.addEventListener('pointercancel', endSeek);
+  window.addEventListener('touchcancel', endSeek);
+  seekLabels.addEventListener('click', e=>{
+    const label = e.target.closest('.seek-sec-label');
+    if(!label || !a.duration) return;
+    a.currentTime = Math.min(a.duration, Number(label.dataset.from || 0));
+    updateSeek();
+    save();
+  });
+  seek.addEventListener('keydown', e=>{ if(!a.duration) return; if(e.key==='ArrowRight') a.currentTime=Math.min(a.duration,a.currentTime+5); if(e.key==='ArrowLeft') a.currentTime=Math.max(0,a.currentTime-5); });
+
+  function setVolUI(){ volFill.style.width=(a.muted?0:a.volume*100)+'%'; const m=a.muted||a.volume===0; iconVol.style.display=m?'none':'block'; iconMute.style.display=m?'block':'none'; }
+  function volTo(clientX){ const r=vol.getBoundingClientRect(); const p=Math.min(1,Math.max(0,(clientX-r.left)/r.width)); a.volume=p; a.muted=false; setVolUI(); save(); }
+  let volging=false;
+  vol.addEventListener('mousedown', e=>{ volging=true; volTo(e.clientX); });
+  window.addEventListener('mousemove', e=>{ if(volging) volTo(e.clientX); });
+  window.addEventListener('mouseup', ()=>{ volging=false; });
+  vol.addEventListener('click', e=>volTo(e.clientX));
+  btnMute.addEventListener('click', ()=>{ a.muted=!a.muted; setVolUI(); save(); });
+})();
+</script>
+</body>
+</html>
