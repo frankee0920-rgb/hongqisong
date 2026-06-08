@@ -476,12 +476,15 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   const KEY = 'hongqisong-player-v2';
 
   const fmt = s => { if(!isFinite(s)||s<0) s=0; const m=Math.floor(s/60),ss=Math.floor(s%60); return m+':'+String(ss).padStart(2,'0'); };
+  const duration = () => (isFinite(a.duration) && a.duration > 0) ? a.duration : TIMELINE_TOTAL;
 
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){}
   a.volume = saved.volume != null ? saved.volume : 0.7;
   if(saved.muted) a.muted = true;
   setVolUI();
+  tDur.textContent = fmt(TIMELINE_TOTAL);
+  addSectionMarkers(TIMELINE_TOTAL);
 
   function save(){ try { localStorage.setItem(KEY, JSON.stringify({time:a.currentTime||0, volume:a.volume, muted:a.muted})); } catch(e){} }
 
@@ -512,10 +515,10 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   }
 
   a.addEventListener('loadedmetadata', () => {
-    tDur.textContent = fmt(a.duration);
-    if(saved.time && saved.time < a.duration){ try { a.currentTime = saved.time; } catch(e){} }
+    tDur.textContent = fmt(duration());
+    if(saved.time && saved.time < duration()){ try { a.currentTime = saved.time; } catch(e){} }
     updateSeek();
-    addSectionMarkers(a.duration);
+    addSectionMarkers(duration());
   });
   a.addEventListener('error', () => { hint.classList.add('show'); setTimeout(()=>hint.classList.remove('show'),5200); });
   a.addEventListener('timeupdate', () => { updateSeek(); if(Math.floor(a.currentTime)%3===0) save(); });
@@ -523,7 +526,7 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   a.addEventListener('pause', () => { player.classList.remove('playing'); iconPlay.style.display='block'; iconPause.style.display='none'; save(); });
 
   function updateSeek(){
-    const p = a.duration ? (a.currentTime/a.duration) : 0;
+    const p = duration() ? (a.currentTime/duration()) : 0;
     seekFill.style.width = (p*100)+'%';
     seekKnob.style.left = (p*100)+'%';
     tCur.textContent = fmt(a.currentTime);
@@ -543,10 +546,8 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   function seekTo(clientX){
     const r=seek.getBoundingClientRect();
     const p=Math.min(1,Math.max(0,(clientX-r.left)/r.width));
-    if(a.duration){
-      a.currentTime=p*a.duration;
-      updateSeek();
-    }
+    a.currentTime=p*duration();
+    updateSeek();
   }
   let seeking=false;
   function startSeek(e){
@@ -579,12 +580,12 @@ msSubtabs.forEach(st => st.addEventListener('click', () => {
   window.addEventListener('touchcancel', endSeek);
   seekLabels.addEventListener('click', e=>{
     const label = e.target.closest('.seek-sec-label');
-    if(!label || !a.duration) return;
-    a.currentTime = Math.min(a.duration, Number(label.dataset.from || 0));
+    if(!label) return;
+    a.currentTime = Math.min(duration(), Number(label.dataset.from || 0));
     updateSeek();
     save();
   });
-  seek.addEventListener('keydown', e=>{ if(!a.duration) return; if(e.key==='ArrowRight') a.currentTime=Math.min(a.duration,a.currentTime+5); if(e.key==='ArrowLeft') a.currentTime=Math.max(0,a.currentTime-5); });
+  seek.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') a.currentTime=Math.min(duration(),a.currentTime+5); if(e.key==='ArrowLeft') a.currentTime=Math.max(0,a.currentTime-5); updateSeek(); });
 
   function setVolUI(){ volFill.style.width=(a.muted?0:a.volume*100)+'%'; const m=a.muted||a.volume===0; iconVol.style.display=m?'none':'block'; iconMute.style.display=m?'block':'none'; }
   function volTo(clientX){ const r=vol.getBoundingClientRect(); const p=Math.min(1,Math.max(0,(clientX-r.left)/r.width)); a.volume=p; a.muted=false; setVolUI(); save(); }
